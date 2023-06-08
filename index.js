@@ -6,10 +6,11 @@ const Course = require("./models/Courses");
 const app = express();
 const jwt = require("jsonwebtoken");
 const port = process.env.PORT || 3000;
-
+const router = require("./routes");
 //middleware
 app.use(cors());
 app.use(express.json());
+app.use(router);
 
 async function main() {
   await mongoose
@@ -47,35 +48,7 @@ app.delete("/course/:id", async (req, res) => {
   console.log(deletedCourse);
   res.send("delete");
 });
-app.post("/login", async (req, res) => {
-  const user = await User.findOne({ email: req.body.email });
-  if (!user) {
-    return res
-      .status(400)
-      .json({ message: "User Not Found. Please register!" });
-  }
-  if (user.password != req.body.password) {
-    return res.status(400).json({ message: "password is not valid" });
-  }
-  const token = jwt.sign({ id: user._id }, "shhhhh");
-  res.send({ user, token });
-});
-app.post("/register", async (req, res) => {
-  const existingUser = await User.findOne({ email: req.body.email });
-  console.log(existingUser);
 
-  if (existingUser) {
-    return res.status(400).json({ message: "already user existed" });
-  }
-  const user = new User(req.body);
-  await user.save();
-
-  res.send({
-    user: user,
-
-    // token: token
-  });
-});
 app.put("/user/:id", (req, res) => {
   res.send("me (without role), admin");
 });
