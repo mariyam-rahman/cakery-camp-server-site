@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const User = require("../models/User.js");
 exports.login = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
@@ -9,7 +10,7 @@ exports.login = async (req, res) => {
   if (user.password != req.body.password) {
     return res.status(400).json({ message: "password is not valid" });
   }
-  const token = jwt.sign({ id: user._id }, "shhhhh");
+  const token = jwt.sign({ id: user._id }, "abc");
   res.send({ user, token });
 };
 
