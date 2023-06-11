@@ -112,6 +112,6 @@ exports.updateCourseStatus = async (req, res) => {
     req.params.id,
     { status: req.body.status, adminFeedback: req.body.adminFeedback },
     { new: true }
-  );
+  ).populate("instructor");
   res.json({ course: updatedCourse });
 };
