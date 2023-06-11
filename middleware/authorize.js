@@ -3,7 +3,7 @@ module.exports = (role) => {
     console.log(req.user);
     if (req.user.role != role) {
       // return faile 403
-      return res.json("from authorize only function");
+      return res.json("user does not have the permission to do this shit");
     } else {
       next();
     }

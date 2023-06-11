@@ -24,24 +24,8 @@ main().catch((err) => console.log(err));
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
-app.get("/courses");
-app.post("/course", async (req, res) => {
-  console.log(req.body);
-  const course = new Course(req.body);
-  await course.save();
-  res.send("all classes");
-});
-
-app.put("/user/:id", (req, res) => {
-  res.send("me (without role), admin");
-});
-app.post("/course/:id/select", (req, res) => {
-  res.send("student");
-});
-app.delete("/course/:id/select", (req, res) => {
-  res.send("student");
-});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+ 
